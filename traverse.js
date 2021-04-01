@@ -4,11 +4,9 @@ const FS  = require("fs");
 const regexTxt = /([0-9]+.txt)$/; // gets only txt files, excludes read.me.txt included in some indexes
 const regexTxtNum = /[0-9]+(?=\\[0-9]*-*[0-9]+.txt)/; // get text num from path
 
-const pathToMeta = "..//data//pg-metadata//gutenberg-metadata.txt";
-const metaJSON = FS.readFileSync(pathToMeta, "utf-8");
-const pgMeta= JSON.parse(metaJSON);
-
 let created = false;
+
+let metaDataIndex;
 
 const textFilePathIndex = {};
 
@@ -20,44 +18,31 @@ function recursiveDirectoryTraversal(dir, lang) {
    });
  }
 
-function isTextFile(path){
-  return regexTxt.test(path);
-}
+const isTextFile = path => regexTxt.test(path);
 
-function isTextFilePathIndexCreated(){
-  return created; 
-}
+const isTextFilePathIndexCreated = () => created;
 
-function isLanguage(path, lang){
-  return (getTextLanguage(path) == lang ? true : false); 
-}
+const isLanguage = (path, lang) => (getTextLanguage(path) == lang ? true : false);
 
-function getTextLanguage(path){
-  return pgMeta[getTextId(path)].language[0];
-}
+const getTextLanguage = path => metaDataIndex[getTextId(path)].language[0];
 
-function getTextId(path){
-  return path.match(regexTxtNum)[0];
-}
+const getTextId = path => path.match(regexTxtNum)[0];
 
-function existsInTextFilePathIndex(id){
-  return (textFilePathIndex[id] !== undefined ? true : false); 
-}
+const existsInTextFilePathIndex = id => (textFilePathIndex[id] !== undefined ? true : false);
 
-function checkFilePathIndex(path, id){
-  if(!existsInTextFilePathIndex(id)) addToTextFilePathIndex(path, id);
-}
+const checkFilePathIndex = (path, id) => !existsInTextFilePathIndex(id) && addToTextFilePathIndex(path, id);
 
-function addToTextFilePathIndex(path, id){
-  textFilePathIndex[id]= path;
-}
+const addToTextFilePathIndex = (path, id) => textFilePathIndex[id]= path;
 
-function createTextFilePathIndex(rootDir, lang){
+function createTextFilePathIndex(rootDir, metaData, lang){
+  metaDataIndex = metaData;
   recursiveDirectoryTraversal(rootDir, lang);
   created = true;
   return textFilePathIndex;
 }
 
-export default function getTextFilePathIndex(rootDir, lang){
-  return (isTextFilePathIndexCreated() ? textFilePathIndex : createTextFilePathIndex(rootDir, lang)); 
-}
+const getTextFilePathIndex = (rootDir, metaData,  lang) => (isTextFilePathIndexCreated() ? textFilePathIndex : createTextFilePathIndex(rootDir, metaData, lang));
+
+module.exports ={
+  getTextFilePathIndex: getTextFilePathIndex
+}; 
