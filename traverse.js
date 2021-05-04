@@ -1,3 +1,5 @@
+//traverse.js - made to traverse the 2010PG iso's file system to grab the path of each TEXT_ID's .txt file once(TEXT_ID can contain many .txt and html) and export to JSON
+//textFilePathIndex: {id:"pathToTxtInFS"}
 const PATH = require("path");
 const FS  = require("fs");
 
