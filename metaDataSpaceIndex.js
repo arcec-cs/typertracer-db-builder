@@ -1,10 +1,10 @@
-//// MetaDataSpaceIndex - keys: text ids, props: .bytes, .numOfSubjects, .numOfAuthors 
+//// MetaDataSpaceIndex - keys: text ids,   
 // key totals: numOfBytes: null, numOfSubjects: null, numOfManyAuthors: null     
 // MDSIndex totals is data for db design decisions, space impact: .numOfBytes -hdspace, .numOfSubjects -rows, .numOfManyAuthors -rows   
 
 //imports
 const FS = require("fs");
-const DATA = require("./data/staticDataStore");//2010 library ids/metadata
+const DATA = require("./data/staticDataStore"); //2010 library ids/metadata
 const IdIndex = require("./IdIndex.js"); // fact func, createIdIndex(idsArr, optPrototype) IdIndex -> IdIndexStore
 
 //helpers to be declaritive
@@ -13,7 +13,7 @@ const isCalc = (propName, MDSIndex) =>(MDSIndex.totals[propName] != null);
 
 //MDSIndex prototype methods
 const metaDataSpaceIndexFunctionStore = {
-   setNumOfBytes: function(){//setX if statments checks, last expression set
+   setNumOfBytes: function(){ //setX if statments checks, last expression set
     if(isSet("numOfBytes",this)) return console.log(`numOfBytes already set`);
     this.ids.forEach(id => this[id].numOfBytes = FS.statSync(DATA.FILE_PATH_INDEX[id]).size);//props and vals set together
   },
@@ -49,13 +49,13 @@ const metaDataSpaceIndexFunctionStore = {
 }; 
 
 //fac func, MDSIndex: IdIndex ->MDSIndexFuncStore; empty if user wants to select what data with methods  
-const createMetaDataSpaceIndexBase = (idArrList) => {  
+const createMetaDataSpaceIndexBase = (idArr) => {  
   const MDSEIndex =  IdIndex.createIdIndex(idArrList, metaDataSpaceIndexFunctionStore);
   MDSEIndex.totals = {numOfBytes: null, numOfSubjects: null, numOfManyAuthors: null}; //null coerce to 0 w/ + op  
   return MDSEIndex; 
 };
 //fac func, provides user with with completed index for ease 
-const createMetaDataSpaceIndex = (idArrList) => { 
+const createMetaDataSpaceIndex = (idArr) => { 
   const MDSIndex = createMetaDataSpaceIndexBase(idArrList);
   MDSIndex.setAndCalcAll(); 
   return MDSIndex;
