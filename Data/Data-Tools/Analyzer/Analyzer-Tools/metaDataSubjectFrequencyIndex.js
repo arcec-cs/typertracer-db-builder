@@ -3,7 +3,7 @@
 // unique i.e if id 1 contains subject "Fiction" twice only adds one to "Fiction, Frequency"
 
 //imports
-const MDSIndex = require("./metaDataSubjectIndex");
+const MDSIndex = require("../../Processor/Processor-Tools/metaDataSubjectIndex");
 
 //HELPERS: bool, regex, setters, sort
 //bool
