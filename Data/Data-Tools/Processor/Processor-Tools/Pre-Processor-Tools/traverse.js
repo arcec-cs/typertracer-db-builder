@@ -9,7 +9,7 @@ const regexTxtNum = /[0-9]+(?=\\[0-9]*-*[0-9]+.txt)/; // get text num from path
 let metaDataIndex; //arg of module export that is an indexed object correlating with the indexed filesystem of the arg rootDir
 const textFilePathIndex = {}; //the output 
 
-const dataDirectory = './/data';
+const dataDirectory =  PATH.resolve(__dirname,'..//..//..//..//Data-Source//pre-proccessor-generated');
 const jsonName = 'textFilePathIndex.json';
 const jsonPath = `${dataDirectory}//${jsonName}`;
 

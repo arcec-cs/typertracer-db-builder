@@ -1,7 +1,7 @@
 //IndexId- exports Factory function, takes in an array of book ids with optional argument idIndexStore to set prototype functions
 
 //import
-const DATA = require("./data/staticDataStore.js"); 
+const DATA = require("../../../Data-Source/staticDataStore"); 
 
 //helpers
 const getAvailableTextIds = idArr => { // filters ids not in 2010 FS; returns arr of ids

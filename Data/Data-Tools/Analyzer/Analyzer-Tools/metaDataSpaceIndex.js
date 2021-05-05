@@ -4,7 +4,7 @@
 
 //imports
 const FS = require("fs");
-const DATA = require("./data/staticDataStore"); //2010 library ids/metadata
+const DATA = require("../../../Data-Source/staticDataStore"); //2010 library ids/metadata
 const IdIndex = require("./IdIndex.js"); // fact func, createIdIndex(idsArr, optPrototype) IdIndex -> IdIndexStore
 
 //helpers to be declaritive
