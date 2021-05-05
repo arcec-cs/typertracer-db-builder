@@ -2,7 +2,7 @@
 // and a regex made subjectPriority object; MDSIBase only subject List. MDSIndex{ id:{subjectList:[], subjectPriority:{}} }
 //subjectPriority{subject1: HighS , subject2: MHighS,  subject3: MedS, subject4: LowS} property gets created on match, only matches MHishS subjectPriority(subject2: MHighS,) 
 
-const DATA = require("./data/staticDataStore.js");
+const DATA = require("../../../Data-Source/staticDataStore");
 const IdIndex = require("./IdIndex.js");
 
 //regexSubjectPriority to parse subjects from subjectList;   
