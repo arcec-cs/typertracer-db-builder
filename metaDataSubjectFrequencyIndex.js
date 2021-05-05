@@ -1,6 +1,6 @@
-////MetaDataSubjectFrequencyIndex.js(MDSFI) - exports Fact Func that creates MDSFI containg 
+////MetaDataSubjectFrequencyIndex.js(MDSFI) - exports Fact Func that creates MDSFI containg
 //Specific and NonSpecific subjectFrequencyIndex MDFSI:{specific:{}, nonSpecific:{}} w/ keys: subj, values: Frequency #(unique per id)
-// unique i.e if id 1 contains subject "Fiction" twice only adds one to "Fiction, Frequency"    
+// unique i.e if id 1 contains subject "Fiction" twice only adds one to "Fiction, Frequency"
 
 //imports
 const MDSIndex = require("./metaDataSubjectIndex");
@@ -69,5 +69,5 @@ return index;
 }
 
 module.exports= {
-  createMetaDataSubjectFrequencyIndex: createSubjectFrequencyIndex,
+  createMetaDataSubjectFrequencyIndex: createMetaDataSubjectFrequencyIndex,
 };
