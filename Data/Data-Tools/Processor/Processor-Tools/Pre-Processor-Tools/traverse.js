@@ -9,13 +9,14 @@ const regexTxtNum = /[0-9]+(?=\\[0-9]*-*[0-9]+.txt)/; // get text num from path
 let metaDataIndex; //arg of module export that is an indexed object correlating with the indexed filesystem of the arg rootDir
 const textFilePathIndex = {}; //the output 
 
-const dataDirectory =  PATH.resolve(__dirname,'..//..//..//..//Data-Source//pre-proccessor-generated');
+const dataDirectory =  PATH.resolve(__dirname,'..//..//..//..//Data-Source//pre-processor-generated');
 const jsonName = 'textFilePathIndex.json';
-const jsonPath = `${dataDirectory}//${jsonName}`;
+//const jsonPath = `${dataDirectory}//${jsonName}`;
+const jsonPath = PATH.join(`${dataDirectory}`,`${jsonName}`);
 
 const existsMsg = `traverse.js: NO NEW JSON FILE CREATED, ${jsonName} already exists at '${jsonPath}'. if the rootDir has been updated please expell json and rerun, else ignore this message.`;
 const successMsg = `traverse.js: ${jsonPath} created.`; 
-const dirCreateMsg =`traverse.js: ${dataDirectory} created`;
+const dirCreateMsg = `traverse.js: ${dataDirectory} created.`; 
 
 function recursiveDirectoryTraversal(dir, lang) {
   FS.readdirSync(dir).forEach(file => {
@@ -41,15 +42,15 @@ const addToTextFilePathIndex = (path, id) => textFilePathIndex[id]= path;
 
 const createJson = obj => { FS.writeFileSync(jsonPath, JSON.stringify(obj)); console.log(successMsg); };
 
-const createDataDir = () => FS.mkdirSync(dataDirectory);
+const createDataDir = () => { console.log(dirCreateMsg); return FS.mkdirSync(dataDirectory);}   
 
-const dataDirectoryExits = () => { FS.existsSync(dataDirectory); console.log(dirCreateMsg); };
+const dataDirectoryExits = () => FS.existsSync(dataDirectory); 
 
 const jsonExists = () => FS.existsSync(jsonPath);
 
 function createTextFilePathIndex(rootDir, metaData, lang){
-  metaDataIndex = metaData;
-  !dataDirectoryExits() && createDataDir();
+  metaDataIndex = metaData; // make acc to module scope
+  !dataDirectoryExits() && createDataDir(); //made w/o db-builder FS in mind. should have dataDir but will keep check for now.
   console.log(`traverse.js: Creation of ${jsonPath} in progress...`);
   recursiveDirectoryTraversal(rootDir, lang);
   return textFilePathIndex;
