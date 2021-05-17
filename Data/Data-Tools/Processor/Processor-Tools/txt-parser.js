@@ -20,6 +20,7 @@ const parseEnterEncoding = paraArray => { // parses out Enter encoding(\r\n) and
   return paraArray; 
 }
 
+const splitBySpace = stringText => stringText.split(/\s/g); 
 const splitToParaArr = (stringText) => stringText.split(regexPara); //split by para delimeter.
 const splitToParaSenArr = (paraArr) =>{
   const senArray = [];
@@ -27,29 +28,39 @@ const splitToParaSenArr = (paraArr) =>{
   return senArray;
 }
 
-//output notes. Sentences begin with a whitespace except begginging of paragraphs. quotation marks are escaped i.e (["A said\"I am a quote\"])
-const txtFileToParagraphSentenceArray = filePathToTxtFile => {  //returned array of element resutling in jagged array array[#p][#s] 
+const countWords = wordArr => {
+  let count = 0;
+  wordArr.forEach(word => (word != '') && count++); // enters show up a  ''
+  return count; 
+}
+
+// TEXT PARSING FUNCTIONS
+const toStringAndRemovePgHeaderAndFooter = filePathToTxtFile => {  
   return pipe(
     txtToStringText,
     parseNonContentBeg,
     parseNonContentEnd,
-    splitToParaArr,
-    parseEnterEncoding,
-    splitToParaSenArr
   )(filePathToTxtFile)
 }
 
-const getNumOfWords = paragraphSentenceArray => {
-  let numOfWords = 0;
-  paragraphSentenceArray.forEach( para => { //index paragraphs
-    para.forEach(sen => { //index sentences
-       numOfWords = numOfWords + (sen.split(/\s/g).length); //split sentence string by space, 
-    });
-  });
-  return numOfWords;
-};
+//output notes. Sentences begin with a whitespace except begginging of paragraphs. quotation marks are escaped i.e (["A said\"I am a quote\"])
+const toParaSenArr = stringRemovedHeaderAndFooter =>{ //returned array of element resutling in jagged array array[#p][#s] 
+  return pipe(
+    splitToParaArr,
+    parseEnterEncoding,
+    splitToParaSenArr
+  )(stringRemovedHeaderAndFooter)
+}
+
+const getNumOfWords = stringRemovedHeaderAndFooter => {
+  return pipe(
+    splitBySpace,
+    countWords
+  )(stringRemovedHeaderAndFooter)
+}
 
 module.exports= {
-  txtFileToParagraphSentenceArray: txtFileToParagraphSentenceArray,
+  toStringAndRemovePgHeaderAndFooter: toStringAndRemovePgHeaderAndFooter,
+  toParaSenArr: toParaSenArr,
   getNumOfWords: getNumOfWords
 };

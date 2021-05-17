@@ -9,8 +9,8 @@ const IdIndex = require("./IdIndex.js");
 const RegexSubjectHigh = /[A-Z][a-z]+\sfiction/; // higest priority for is the most broad yet descriptive subject category, tell ficiton and genere, most bang for buck 
 const RegexSubjectMedHigh = /((?<=\-\-\s)(Fiction|Biography|History|Poetry|Drama|Tragedies|Humor|Dictionaries))/gi;// these are broadCategories  tooSpecificCategory -- broadCategory i.e Animals -- Ficiton  Broadest 
 const RegexSubjectMed = /(Translations|poetry|drama|comedies|Philosophy|Politics|Political|Folklore|Short stories|Cooking|utopias|Biology|ethics|African Americans|Architecture)/gi; //Broad
-const RegexSubjectLow = /(Military|Drawing|Essays|travel|Fairy Tales|Mythology|occultism|sabotage|Christianity|Magic|Love|Latin language|sabotage|Church|Utilitarianism|Early works to 1800|Rizal, José|New Thought|Antiquities|Philippine|Steam-boilers|NeedleWork|Jews|United States|Legends|Imprisonment|Civil Disobedience|Biblical|Communism|lynching)/gi; //least broad, many just added to list to grab a subject for a text
-//Bible|Comidies|Economics|
+const RegexSubjectLow = /(Bible|Comidies|Economics|Military|Drawing|Essays|travel|Fairy Tales|Mythology|occultism|sabotage|Christianity|Magic|Love|Latin language|sabotage|Church|Utilitarianism|Early works to 1800|Rizal, José|New Thought|Antiquities|Philippine|Steam-boilers|NeedleWork|Jews|United States|Legends|Imprisonment|Civil Disobedience|Biblical|Communism|lynching)/gi; //least broad, many just added to list to grab a subject for a text
+
 const createSubjectPriorityMatchesArr = subject => [ // dynamically stores matches for each regexSubjectPriority
   subject.match(RegexSubjectHigh), 
   subject.match(RegexSubjectMedHigh), 
@@ -27,7 +27,7 @@ const metaDataSubjectIndexFunctionStore = { //proto
     if(isSubjectPriorityObjSet(this)) return console.log("MDSIndex subjectPriority Object already set!");
     this.ids.forEach(id => { 
       this[id].subjectPriority = {};//set  
-      this[id].subjectList.forEach(subject => 
+      this[id].subjectList.forEach(subject => // SHOULD OPTOMIZE TO END IF REGEXHIGH IS FOUND
         createSubjectPriorityMatchesArr(subject).forEach((match,ind) => //apply each regexSubjectPriority to a subject
           (match !== null) && (this[id].subjectPriority['subject'+ ind] = match[0]))); //if match set associated priority property, take last 
     });
