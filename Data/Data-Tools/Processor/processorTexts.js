@@ -26,8 +26,7 @@ const processTexts = () => {
     if (jsonExists(idPath)) return console.log(`processorTexts.js: ${idPath} ALREADY EXISTS! if you would like to re-process please delte file, else ignore`)
     
     //processing
-    let textContentClean = TXT_PARSER.toStringAndRemovePgHeaderAndFooter(DATA.FILE_PATH_INDEX[id]);
-    let textContent = TXT_PARSER.toParaSenArr(textContentClean);
+    let textContent = TXT_PARSER.paginate(DATA.FILE_PATH_INDEX[id]);
 
     //to json and write file
     createJson(textContent, idPath);  

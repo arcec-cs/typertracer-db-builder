@@ -1,5 +1,6 @@
 //text-parser.js partial functional implementation; is indempotent/uses pipe, but no need for data to be immutable; 
 const FS = require('fs');
+const TXT_PAGINATE = require('./txt-paginate');
 
 //regex
 const regexNonContBeg = /[\s\S]*?(?=(?<=\*{2,})[\r\n]{3,})/ // (?<=\*{2,})[\r\n]{3,} : match paragraph spacing if preceded by 2 or many \*, [\s\S]*?(?=X): match any and all char(non-greedy)if before X
@@ -60,6 +61,14 @@ const toParaSenArr = stringRemovedHeaderAndFooter =>{ //returned array of elemen
   )(stringRemovedHeaderAndFooter)
 }
 
+const paginate = filePathToTxtFile =>{ //returned array of element resutling in jagged array array[#p][#s] 
+  return pipe(
+    toStringAndRemovePgHeaderAndFooter,
+    toParaSenArr,
+    TXT_PAGINATE.paginateParaSenArr
+  )(filePathToTxtFile)
+}
+
 const getNumOfWords = stringRemovedHeaderAndFooter => {
   return pipe(
     splitBySpace,
@@ -70,5 +79,6 @@ const getNumOfWords = stringRemovedHeaderAndFooter => {
 module.exports= {
   toStringAndRemovePgHeaderAndFooter: toStringAndRemovePgHeaderAndFooter,
   toParaSenArr: toParaSenArr,
+  paginate: paginate,
   getNumOfWords: getNumOfWords
 };
