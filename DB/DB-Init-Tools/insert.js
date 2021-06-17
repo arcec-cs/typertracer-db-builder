@@ -1,4 +1,4 @@
-//insert.js module that inserts data to intialize db ink
+//insert.js module that inserts data to intialize db typetracer
 const FS = require('fs');
 const PATH = require('path');
  
