@@ -15,12 +15,13 @@ async function createSchema(db) {
       table.increments('id');//pk default
       table.string('name', 60).notNullable();
       table.string('email', 150).unique().notNullable();
-      table.bigInteger('words').notNullable();
+      table.bigInteger('words').notNullable().defaultTo(0);
       table.specificType('avatar_id', 'smallInt').defaultTo(0);
       table.timestamps(false, true);
     });
     await db.schema.createTable('Login', function (table) {
       table.increments('id');//pk default
+      table.string('email', 150).unique().notNullable();
       table.string('hash', 100).notNullable();
       table.timestamp('updated_at');
     });
@@ -36,8 +37,8 @@ async function createSchema(db) {
       table.integer('u_id').references('id').inTable("Users").onDelete("CASCADE"); // if user del no need to keep records
       table.integer('t_id').references('id').inTable("Texts");//no cascade, yet
       table.primary(['u_id','t_id']);//composite primary
-      table.string('progress_marker', 11);
-      table.specificType('bookmarks','varChar(11) ARRAY');
+      table.specificType('progress','json');
+      table.integer('last_accessed').notNullable();
       table.integer('words');   
     });
     console.log('created ink schema!');
