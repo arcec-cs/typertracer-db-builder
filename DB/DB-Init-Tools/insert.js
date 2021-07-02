@@ -5,6 +5,7 @@ const PATH = require('path');
 
 //get ink metadata
 const MD = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//ink-data//ink-metadata//ink-metadata.json')));
+const PAGES = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//ink-data//ink-metadata//numberOfPagesIndex.json')));
 const MD_IDS = Object.keys(MD);
 
 //creates knex insert list for "single property" Tables like Categories and Authors  
@@ -34,8 +35,8 @@ const initTexts = (db) => {
     try {
       const author = await getAuthorFk(id);
       const category = await getCategoryFk(id);
-      await db('Texts').insert({id: id, title: MD[id].title, words: MD[id].words, author_id: author[0].id, category_id: category[0].id})
-      console.log(`inserted id:${id} title:${MD[id].title} words: ${MD[id].words} a_id:${author[0].id} c_id:${category[0].id}`);
+      await db('Texts').insert({id: id, title: MD[id].title, pages: PAGES[id], author_id: author[0].id, category_id: category[0].id})
+      console.log(`inserted id:${id} title:${MD[id].title} pages: ${PAGES[id]} a_id:${author[0].id} c_id:${category[0].id}`);
     }catch(e){
       console.log(e);
     }
