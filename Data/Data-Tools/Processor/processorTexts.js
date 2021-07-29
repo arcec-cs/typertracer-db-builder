@@ -1,4 +1,4 @@
-//processor-texts.js - creates "Data//Data-Processed//ink-data//ink-texts//ink-text[ID*].json" which consists of each processed text
+//processor-texts.js - creates "Data//Data-Processed//typetracer-data//typetracer-texts//typetracer-text[ID*].json" which consists of each processed text
 const PATH = require('path');
 const FS = require('fs');
 const DATA = require("../../Data-Source/staticDataStore");
@@ -14,15 +14,15 @@ const processTexts = () => {
 
   //Pre-Processing / set base path  
   PRE_PROCESSOR.preProcess(); // creates necessary 'textFilePathIndex.json' if not already created
-  const basePath =  PATH.resolve(__dirname,'..//..//Data-Processed//ink-data'); //const inkTextPath =  PATH.resolve(__dirname,'..//..//Data-Processed//ink-data//ink-texts');
-  const inkIdIndex = ID_INDEX.createIdIndex(DATA.IDS_INPUT);// dont need for storge of props, but obj gives available ids form our id input.
+  const basePath =  PATH.resolve(__dirname,'..//..//Data-Processed//typetracer-data'); //const typetracerTextPath =  PATH.resolve(__dirname,'..//..//Data-Processed//typetracer-data//typetracer-texts');
+  const typetracerIdIndex = ID_INDEX.createIdIndex(DATA.IDS_INPUT);// dont need for storge of props, but obj gives available ids form our id input.
   //set forNumOfpages
-  const numOfPagesPath = `${basePath}//ink-metadata//numberOfPagesIndex.json`;
+  const numOfPagesPath = `${basePath}//typetracer-metadata//numberOfPagesIndex.json`;
   const numOfPagesIndex = {};
   //Text Processing
-  inkIdIndex.ids.forEach(id => { //IDS_INPUT FROM our list of text ids that we want to process  
+  typetracerIdIndex.ids.forEach(id => { //IDS_INPUT FROM our list of text ids that we want to process  
     // set path for id/
-    const idPath = `${basePath}//ink-texts//${id}.json`;
+    const idPath = `${basePath}//typetracer-texts//${id}.json`;
    
     // check if exists
     if (jsonExists(idPath)) return console.log(`processorTexts.js: ${idPath} ALREADY EXISTS! if you would like to re-process please delte file, else ignore`)

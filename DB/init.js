@@ -1,7 +1,7 @@
 // init.js - initializes connection to and contents of db typetracer
 const knex = require('knex');
-const inkSchema = require('./DB-Init-Tools/schema');
-const inkInsert = require('./DB-Init-Tools/insert');
+const typetracerSchema = require('./DB-Init-Tools/schema');
+const typetracerInsert = require('./DB-Init-Tools/insert');
 pgconfig = {rejectUnauthorized: false }
 //initialize connection to postgres db 'typetracer'
 const db = knex({
@@ -17,7 +17,7 @@ const db = knex({
   }
 });
 
- inkSchema.createSchema(db) //create schema first
- .then(() => inkInsert.initAll(db))//init data
+ typetracerSchema.createSchema(db) //create schema first
+ .then(() => typetracerInsert.initAll(db))//init data
  .then(()=> console.log("init.js: typetracer Database Intialized !")); //close connection 
  //.then(()=> db.destroy()) errors, manual closing is okay since is a "user run script"

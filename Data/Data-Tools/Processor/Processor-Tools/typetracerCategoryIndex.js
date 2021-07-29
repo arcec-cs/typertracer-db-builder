@@ -1,6 +1,6 @@
-////inkCategoryIndex.js 
+////typetracerCategoryIndex.js 
 //createCategoryIndex uses metaDataSubjectIndex's subject priority object to determine the the subject that shall be the solitary Category that represents a book
-//This is necessary to give the Ink Db a categorical quantifier for each book while meeting the db space constraints conclued from MetaDataSpaceIndex's produced data.
+//This is necessary to give the typetracer Db a categorical quantifier for each book while meeting the db space constraints conclued from MetaDataSpaceIndex's produced data.
 //createCategoryNoIndex() creates index containing Ids and subject info that do not have an elligble category so one of the subject can be added as an elligble category in metaDataSubjectIndex.js
 
 //imports
@@ -26,8 +26,8 @@ const setDefinitiveSubjectIndex = (MDSIndex, catIndex) => { //picks highest prio
   });
 }
 
-//FACT FUNC, SUBJECT DATA THAT WILL BE ADDED TO INK'S DB
-const createCategoryIndex = MDSIndex => { //FACT FUNC, SUBJECT DATA THAT WILL BE ADDED TO INK'S DB
+//FACT FUNC, SUBJECT DATA THAT WILL BE ADDED TO TYPETRACER'S DB
+const createCategoryIndex = MDSIndex => { //FACT FUNC, SUBJECT DATA THAT WILL BE ADDED TO TYPETRACER'S DB
   inputValidator(MDSIndex);
   index = IdIndex.createIdIndex(MDSIndex.ids); //create index to hold Definitive Subjects
   setDefinitiveSubjectIndex(MDSIndex, index);

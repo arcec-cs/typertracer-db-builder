@@ -1,4 +1,4 @@
-//processorMetaData.js -- creates "Data//Data-Processed//ink-data//ink-metadata//ink-metadata.json" which consists of id":{"author":,"title":,"category":,"words":}
+//processorMetaData.js -- creates "Data//Data-Processed//typetracer-data//typetracer-metadata//typetracer-metadata.json" which consists of id":{"author":,"title":,"category":,"words":}
 
 //imports
 const PATH = require('path');
@@ -7,15 +7,15 @@ const DATA = require("../../Data-Source/staticDataStore");
 const PRE_PROCESSOR = require('./preProcessor'); // has check  
 const ID_INDEX = require("./Processor-Tools/IdIndex");
 const MDS_INDEX = require('./Processor-Tools/metaDataSubjectIndex');//imports
-const CAT_INDEX = require('./Processor-Tools/inkCategoryIndex');
+const CAT_INDEX = require('./Processor-Tools/typetracerCategoryIndex');
 const TXT_PARSER = require("./Processor-Tools/txt-parser");
 
 
 //Do helpers
-const jsonPath =  PATH.resolve(__dirname,'..//..//Data-Processed//ink-data//ink-metadata//ink-metadata.json');
+const jsonPath =  PATH.resolve(__dirname,'..//..//Data-Processed//typetracer-data//typetracer-metadata//typetracer-metadata.json');
 const jsonExists = () => FS.existsSync(jsonPath);
-const createJson = obj => { FS.writeFileSync(jsonPath, JSON.stringify(obj)); console.log('ink-metadata.json created'); }
-const existsMsg = `Processor.js: ink-metadata.json Already Exists, please remove file you would like to re-process, else ignore; ${jsonPath}`;
+const createJson = obj => { FS.writeFileSync(jsonPath, JSON.stringify(obj)); console.log('typetracer-metadata.json created'); }
+const existsMsg = `Processor.js: typetracer-metadata.json Already Exists, please remove file you would like to re-process, else ignore; ${jsonPath}`;
 
 //PROCESSING Func
 const processMetaData = () => {
@@ -45,16 +45,16 @@ const processMetaData = () => {
   };
   
   //Processing
-  const createInkMetadata = () => { console.log('MDProcessing: creating Index'); 
-    const inkMetadataIndex = ID_INDEX.createIdIndex(DATA.IDS_INPUT); console.log('MDProcessing: getting authors'); 
-    setPropFromPgMetaIndex(inkMetadataIndex, "author"); console.log('MDProcessing: getting authors');  
-    setPropFromPgMetaIndex(inkMetadataIndex, "title"); console.log('MDProcessing: getting titles');
-    processAndSetCategories(inkMetadataIndex); console.log('MDProcessing: getting wordCount');
-    processAndSetWordCount(inkMetadataIndex); console.log(`MDProcessing: Success, Index Created at ${jsonPath}`);
-    return inkMetadataIndex;
+  const createTypetracerMetadata = () => { console.log('MDProcessing: creating Index'); 
+    const typetracerMetadataIndex = ID_INDEX.createIdIndex(DATA.IDS_INPUT); console.log('MDProcessing: getting authors'); 
+    setPropFromPgMetaIndex(typetracerMetadataIndex, "author"); console.log('MDProcessing: getting authors');  
+    setPropFromPgMetaIndex(typetracerMetadataIndex, "title"); console.log('MDProcessing: getting titles');
+    processAndSetCategories(typetracerMetadataIndex); console.log('MDProcessing: getting wordCount');
+    processAndSetWordCount(typetracerMetadataIndex); console.log(`MDProcessing: Success, Index Created at ${jsonPath}`);
+    return typetracerMetadataIndex;
   };
   
-  return createJson(createInkMetadata());
+  return createJson(createTypetracerMetadata());
 }
 
 //DO

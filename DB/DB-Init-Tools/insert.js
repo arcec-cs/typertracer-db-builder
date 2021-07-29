@@ -3,9 +3,9 @@ const FS = require('fs');
 const PATH = require('path');
  
 
-//get ink metadata
-const MD = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//ink-data//ink-metadata//ink-metadata.json')));
-const PAGES = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//ink-data//ink-metadata//numberOfPagesIndex.json')));
+//get typetracer metadata
+const MD = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//typetracer-data//typetracer-metadata//typetracer-metadata.json')));
+const PAGES = JSON.parse(FS.readFileSync(PATH.resolve(__dirname,'..//..//Data//Data-Processed//typetracer-data//typetracer-metadata//numberOfPagesIndex.json')));
 const MD_IDS = Object.keys(MD);
 
 //creates knex insert list for "single property" Tables like Categories and Authors  

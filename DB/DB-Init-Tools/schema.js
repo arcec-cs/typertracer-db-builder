@@ -1,4 +1,4 @@
-//schema.js - module that creates table to initialize db typetracer
+//schema.js - module that creates table to initialize typetracer db
 async function createSchema(db) {
   try {
     await db.schema.createTable('Authors', function (table) {
@@ -39,7 +39,7 @@ async function createSchema(db) {
       table.integer('last_accessed').notNullable();  
       table.timestamp("created_at").defaultTo(db.fn.now()); 
     });
-    console.log('created ink schema!');
+    console.log('created typetracer schema!');
    }
    catch(err) {
     console.log(err);
